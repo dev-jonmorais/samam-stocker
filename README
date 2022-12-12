@@ -1,0 +1,14 @@
+
+# SAM STOCK MANAGEMENT
+
+Simple system to manage inventory
+
+
+## I use the following in this project:
+
+ - JPA
+ - Hibernate
+ - EJB
+ - CRUD
+ - Primefaces (UI)
+
