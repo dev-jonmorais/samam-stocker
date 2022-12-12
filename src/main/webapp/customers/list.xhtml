@@ -1,0 +1,63 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"> All Customers </ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>All Customers</h1>
+    	
+    	<h:form id="frmSearch">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="New Customer" id="botaoNovo" action="/customers/create.xhtml" icon="pi pi-plus"/>
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:dataTable id="customersTable" value="#{readCustomerBean.customers}" var="customer" lazy="true"
+		    		style="margin-top: 20px" emptyMessage="Not data registered." rows="20"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+		    		
+	    		<p:column headerText="Customer ID" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{customer.customerID}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="First Name">
+	    			<h:outputText value="#{customer.firstName}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Last Name">
+	    			<h:outputText value="#{customer.lastName}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="City">
+	    			<h:outputText value="#{customer.city.cityName}" />
+	    		</p:column>
+	    		
+	    		<p:column style="width: 100px; text-align: center">
+		    		<p:button outcome="create" icon="pi pi-pencil" title="Edit" styleClass="ui-button-raised ui-button-warning">
+		    			<f:param name="customer" value="#{customer.customerID}"/>
+		    		</p:button>
+		    		
+		    		<p:commandButton 
+		    				icon="pi pi-trash" title="Delete" oncomplete="confirmDelete.show()"
+							process="@this" update=":frmSearch:confirmDeleteDialog" styleClass="ui-button-raised ui-button-danger">
+						<f:setPropertyActionListener target="#{readCustomerBean.customerSelected}" value="#{customer}" />
+					</p:commandButton>
+		    	</p:column>
+		   	</p:dataTable>
+		   	
+		   	<p:confirmDialog id="confirmDeleteDialog" widgetVar="confirmDelete"
+	        		message="Do you delete the Customer Name #{readCustomerBean.customerSelected.firstName} #{readCustomerBean.customerSelected.lastName}?"  
+	                header="Delete the Customer" severity="alert">
+	        	<p:button value="No" onclick="confirmDelete.hide(); return false;" />
+	        	<p:commandButton value="Yes" update=":frmSearch:customersTable"
+	        			onclick="confirmDelete.hide()" action="#{readCustomerBean.delete}" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,103 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo"> New Employee </ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="employee" value="#{createEmployeeBean.employee}" />
+		</f:metadata>
+    
+    	<h1 class="header-title"> New Employee </h1>
+    
+    	<h:form id="frmRegister">
+	    	<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Save" id="buttonSave" action="#{createEmployeeBean.save}" update="frmRegister" icon="pi pi-save"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:toolbarGroup align="right">
+					<p:button value="Back to Employees" outcome="/employees/list.xhtml" icon="pi pi-arrow-left"/>
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="ID" for="eID"/>
+	    		<p:inputText id="eID" size="20" maxlength="20" value="#{createEmployeeBean.employee.employeeID}" readonly="true"/>
+	    		
+	    		<p:outputLabel value="First Name" for="firstName"/>
+	    		<p:inputText id="firstName" size="60" maxlength="80" value="#{createEmployeeBean.employee.firstName}"/>
+	    		
+	    		<p:outputLabel value="Last Name" for="lastName"/>
+	    		<p:inputText id="lastName" size="60" maxlength="80" value="#{createEmployeeBean.employee.lastName}"/>
+	    		
+	    		<p:outputLabel value="Alias Name" for="aliasName"/>
+	    		<p:inputText id="aliasName" size="60" maxlength="80" value="#{createEmployeeBean.employee.aliasName}"/>
+	    		
+	    		<p:outputLabel value="Sex" for="sex" />
+				<p:selectOneMenu id="sex" value="#{createEmployeeBean.employee.sex}">
+					<f:selectItem itemValue="Male" itemLabel="Male" />
+					<f:selectItem itemValue="Female" itemLabel="Female" />
+					<f:selectItem itemValue="Other Sex" itemLabel="Other" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Age" for="age"/>
+	    		<p:inputText id="age" size="20" maxlength="20" value="#{createEmployeeBean.employee.age}"/>
+				
+				<p:outputLabel for="docCPF" value="CPF" />
+            	<p:inputMask id="docCPF" value="#{createEmployeeBean.employee.docCPF}" mask="999.999.999-99" validateMask="true" />
+            	
+            	<p:outputLabel for="docRG" value="RG" />
+            	<p:inputMask id="docRG" value="#{createEmployeeBean.employee.docRG}" mask="999999999-99" validateMask="true" />
+            	
+            	<p:outputLabel for="phoneMain" value="Phone Main" />
+            	<p:inputMask id="phoneMain" value="#{createEmployeeBean.employee.phoneMain}" mask="(99) 9999-9999" validateMask="true" />
+            	
+            	<p:outputLabel value="Employee Position" for="employeePosition" />
+				<p:selectOneMenu id="employeePosition" value="#{createEmployeeBean.employee.position}">
+					<f:selectItem itemValue="Business" itemLabel="Business" />
+					<f:selectItem itemValue="Manager" itemLabel="Manager" />
+					<f:selectItem itemValue="Secretary" itemLabel="Secretary" />
+					<f:selectItem itemValue="Information Technology" itemLabel="Information Technology" />
+					<f:selectItem itemValue="Lawyer" itemLabel="Lawyer" />
+					<f:selectItem itemValue="Cleaner" itemLabel="Cleaner" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Experience Time" for="experienceTime" />
+				<p:selectOneMenu id="experienceTime" value="#{createEmployeeBean.employee.experienceTime}">
+					<f:selectItem itemValue="6 months" itemLabel="6 months" />
+					<f:selectItem itemValue="1 year" itemLabel="1 year" />
+					<f:selectItem itemValue="2 year" itemLabel="2 year" />
+					<f:selectItem itemValue="3 year" itemLabel="3 year" />
+					<f:selectItem itemValue="4 year" itemLabel="4 year" />
+					<f:selectItem itemValue="5 year" itemLabel="5 year" />
+					<f:selectItem itemValue="More 5 years" itemLabel="More 5 years" />
+				</p:selectOneMenu>
+            	
+	    		<p:outputLabel value="Neighboorhood" for="neighboorhood"/>
+	    		<p:inputText id="neighboorhood" size="60" maxlength="80" value="#{createEmployeeBean.employee.neighboorhood}"/>
+	    		
+	    		<p:outputLabel value="Address Line 1" for="addressLine1"/>
+	    		<p:inputText id="addressLine1" size="30" maxlength="60" value="#{createEmployeeBean.employee.addressLine1}"/>
+	    		
+	    		<p:outputLabel value="Address Line 2" for="addressLine2"/>
+	    		<p:inputText id="addressLine2" size="30" maxlength="60" value="#{createEmployeeBean.employee.addressLine2}"/>
+	    		
+	    		<p:outputLabel value="Address Number" for="addressNumber" />
+				<p:inputText id="addressNumber" value="#{createEmployeeBean.employee.addressNumber}" 
+							 size="20" maxlength="20"
+							required="true" requiredMessage="Fill the Input to Address Number?">
+<!-- 					<f:validateLength minimum="10" maximum="30" /> -->
+				</p:inputText>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,47 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo"> New City </ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="city" value="#{createCityBean.city}" />
+		</f:metadata>
+    
+    	<h1 class="header-title"> New City </h1>
+    
+    	<h:form id="frmRegister">
+	    	<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Save" id="buttonSave" action="#{createCityBean.save}" update="frmRegister" icon="pi pi-save"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+					<p:button value="Back to Cities" outcome="/cities/list.xhtml" icon="pi pi-arrow-left"/>
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="ID" for="cID"/>
+	    		<p:inputText id="cID" size="20" maxlength="20" value="#{createCityBean.city.cityID}" readonly="true"/>
+	    		
+	    		<p:outputLabel value="City Name" for="cityName"/>
+	    		<p:inputText id="cityName" size="60" maxlength="80" value="#{createCityBean.city.cityName}"/>
+	    		
+	    		<p:outputLabel value="State" for="state"/>
+	    		<p:selectOneMenu id="state" value="#{createCityBean.city.state}">
+	    			<f:selectItem itemLabel="Choice the state" />
+	    			<f:selectItems value="#{createCityBean.states}" var="state" 
+						itemLabel="#{state.stateName}" itemValue="#{state}"/>
+	    		</p:selectOneMenu>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

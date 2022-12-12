@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo"> New Supplier </ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="supplier" value="#{createSupplierBean.supplier}" />
+		</f:metadata>
+    
+    	<h1 class="header-title"> New Supplier </h1>
+    
+    	<h:form id="frmRegister">
+	    	<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Save" id="buttonSave" action="#{createSupplierBean.save}" update="frmRegister" icon="pi pi-save"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:toolbarGroup align="right">
+					<p:button value="Back to Suppliers" outcome="/suppliers/list.xhtml" icon="pi pi-arrow-left"/>
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="ID" for="sID"/>
+	    		<p:inputText id="sID" size="20" maxlength="20" value="#{createSupplierBean.supplier.supplierID}" readonly="true"/>
+	    		
+	    		<p:outputLabel value="Supplier Name" for="supplierName"/>
+	    		<p:inputText id="supplierName" size="60" maxlength="80" value="#{createSupplierBean.supplier.supplierName}"/>
+	    		
+	    		<p:outputLabel value="City" for="city"/>
+	    		<p:selectOneMenu id="city" value="#{createSupplierBean.supplier.city}">
+	    			<f:selectItem itemLabel="Choice the city" />
+	    			<f:selectItems value="#{createSupplierBean.cities}" var="city" 
+						itemLabel="#{city.cityName}" itemValue="#{city}"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel for="phoneMain" value="Phone Main" />
+            	<p:inputMask id="phoneMain" value="#{createSupplierBean.supplier.phoneMain}" mask="(99) 9999-9999" validateMask="true" />
+            	
+            	<p:outputLabel for="phoneSecondary" value="Phone Secondary" />
+            	<p:inputMask id="phoneSecondary" value="#{createSupplierBean.supplier.phoneSecondary}" mask="(99) 9999-9999" validateMask="true" />
+	    		
+				<p:outputLabel for="docCNPJ" value="CNPJ" />
+            	<p:inputMask id="docCNPJ" value="#{createSupplierBean.supplier.docCNPJ}" mask="999.999.999-99" validateMask="true" />
+            	
+            	<p:outputLabel value="Email Contact" for="emailContact"/>
+	    		<p:inputText id="emailContact" size="60" maxlength="80" value="#{createSupplierBean.supplier.emailContact}"/>
+	    		
+	    		<p:outputLabel value="Neighboorhood" for="neighboorhood"/>
+	    		<p:inputText id="neighboorhood" size="60" maxlength="80" value="#{createSupplierBean.supplier.neighboorhood}"/>
+	    		
+	    		<p:outputLabel value="Address Line 1" for="addressLine1"/>
+	    		<p:inputText id="addressLine1" size="30" maxlength="60" value="#{createSupplierBean.supplier.addressLine1}"/>
+	    		
+	    		<p:outputLabel value="Address Line 2" for="addressLine2"/>
+	    		<p:inputText id="addressLine2" size="30" maxlength="60" value="#{createSupplierBean.supplier.addressLine2}"/>
+	    		
+	    		<p:outputLabel value="Address Number" for="addressNumber" />
+				<p:inputText id="addressNumber" value="#{createSupplierBean.supplier.addressNumber}" 
+							 size="20" maxlength="20"
+							required="true" requiredMessage="Fill the Input to Address Number?">
+<!-- 					<f:validateLength minimum="10" maximum="30" /> -->
+				</p:inputText>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

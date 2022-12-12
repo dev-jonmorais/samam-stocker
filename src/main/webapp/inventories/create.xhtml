@@ -1,0 +1,77 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo"> New Inventory </ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="supplier" value="#{createInventoryBean.inventory}" />
+		</f:metadata>
+    
+    	<h1 class="header-title"> New Inventory </h1>
+    
+    	<h:form id="frmRegister">
+	    	<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Save" id="buttonSave" action="#{createInventoryBean.save}" update="frmRegister" icon="pi pi-save"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:toolbarGroup align="right">
+					<p:button value="Back to Inventories" outcome="/inventories/list.xhtml" icon="pi pi-arrow-left"/>
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="ID" for="sID"/>
+	    		<p:inputText id="sID" size="20" maxlength="20" value="#{createInventoryBean.inventory.inventoryID}" readonly="true"/>
+	    		
+	    		<p:outputLabel value="Item Name" for="itemName"/>
+	    		<p:inputText id="itemName" size="60" maxlength="80" value="#{createInventoryBean.inventory.itemName}"/>
+	    		
+	    		<p:outputLabel value="Products" for="product"/>
+	    		<p:selectOneMenu id="product" value="#{createInventoryBean.inventory.product}">
+	    			<f:selectItem itemLabel="Choice the Product" />
+	    			<f:selectItems value="#{createInventoryBean.products}" var="product" 
+						itemLabel="#{product.productName}" itemValue="#{product}"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel for="inventorySKU" value="SKU" />
+            	<p:inputMask id="inventorySKU" value="#{createInventoryBean.inventory.inventorySKU}" />
+	    		
+				<p:outputLabel value="Group" for="groupName" />
+				<p:selectOneMenu id="groupName" value="#{createInventoryBean.inventory.inventoryGroupName}">
+					<f:selectItem itemValue="group_prd_1" itemLabel="Group 1" />
+					<f:selectItem itemValue="group_prd_2" itemLabel="Group 2" />
+					<f:selectItem itemValue="group_prd_3" itemLabel="Group 3" />
+					<f:selectItem itemValue="group_prd_4" itemLabel="Group 4" />
+					<f:selectItem itemValue="group_prd_5" itemLabel="Group 5" />
+					<f:selectItem itemValue="group_prd_6" itemLabel="Group 6" />
+					<f:selectItem itemValue="group_prd_7" itemLabel="Group 7" />
+					<f:selectItem itemValue="group_prd_8" itemLabel="Group 8" />
+					<f:selectItem itemValue="group_prd_9" itemLabel="Group 9" />
+					<f:selectItem itemValue="group_prd_10" itemLabel="Group 10" />
+				</p:selectOneMenu>
+            	
+            	<p:outputLabel value="Stock Min" for="stockMin"/>
+	    		<p:inputText id="stockMin" size="20" maxlength="20" value="#{createInventoryBean.inventory.stockMin}"/>
+	    		
+	    		<p:outputLabel value="Stock Max" for="stockMax"/>
+	    		<p:inputText id="stockMax" size="20" maxlength="20" value="#{createInventoryBean.inventory.stockMax}"/>
+	    		
+	    		<p:outputLabel value="Stock Available" for="stockAvailable"/>
+	    		<p:inputText id="stockAvailable" size="20" maxlength="20" value="#{createInventoryBean.inventory.stockAvailable}"/>
+	    		
+	    		<p:outputLabel value="Item Bar Code" for="barCode"/>
+			    <p:inputText id="barCode" size="60" maxlength="80" value="#{createInventoryBean.inventory.itemBarCode}"/>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

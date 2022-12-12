@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"> All Inventories </ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>All Inventories</h1>
+    	
+    	<h:form id="frmSearch">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    		
+    		<p:toolbar style="margin-top: 20px">
+    			<p:toolbarGroup>
+    				<p:commandButton value="New" id="botaoNovo" action="/inventories/create.xhtml" icon="pi pi-plus"/>
+    			</p:toolbarGroup>
+    		</p:toolbar>
+    	
+	    	<p:dataTable id="inventoriesTable" value="#{readInventoryBean.inventories}" var="inventory"
+		    		style="margin-top: 20px" emptyMessage="DATA EMPTY." rows="5"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+		    		lazy="true" rowsPerPageTemplate="5,10,15">
+		    		
+		    		<p:column headerText="ID" style="text-align: center; width: 100px">
+		    			<h:outputText value="#{inventory.inventoryID}" />
+		    		</p:column>
+		    		
+		    		<p:column headerText="Item Name">
+		    			<h:outputText value="#{inventory.itemName}" />
+		    		</p:column>
+		    		
+		    		<p:column headerText="Product">
+		    			<h:outputText value="#{inventory.product.productName}" />
+		    		</p:column>
+		    		
+		    		<p:column headerText="Group">
+		    			<h:outputText value="#{inventory.inventoryGroupName}" />
+		    		</p:column>
+		    		
+		    		<p:column style="width: 100px; text-align: center">
+		    			<p:button outcome="InventoryRegister" icon="pi pi-pencil" title="Edit" styleClass="ui-button-raised ui-button-warning">
+		    				<f:param name="inventory" value="#{inventory.inventoryID}"/>
+		    			</p:button>
+		    			
+		    			<p:commandButton icon="pi pi-trash" title="Delete" oncomplete="deleteConfirmation.show()"
+								process="@this" update=":frmSearch:deleteConfirmDialog" styleClass="ui-button-raised ui-button-danger">
+							<f:setPropertyActionListener target="#{readInventoryBean.inventorySelected}" value="#{inventory}" />
+						</p:commandButton>
+		    		</p:column>
+		    </p:dataTable>
+		   
+		    <p:confirmDialog id="deleteConfirmDialog" widgetVar="deleteConfirmation"
+	        		message="Are you sure you want to delete this Inventory Item Name-> #{readInventoryBean.inventorySelected.itemName}?"  
+	                header="Inventory Delete" severity="alert">
+	        	<p:button value="No" onclick="deleteConfirmation.hide(); return false;" />
+	        	<p:commandButton value="Yes" update=":frmSearch:inventoriesTable"
+	        			onclick="deleteConfirmation.hide()" action="#{readInventoryBean.delete}" />
+	    	</p:confirmDialog>
+	    	
+	    </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,89 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo"> New Customer </ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="customer" value="#{createCustomerBean.customer}" />
+		</f:metadata>
+    
+    	<h1 class="header-title"> New Customer </h1>
+    
+    	<h:form id="frmRegister">
+	    	<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Save" id="buttonSave" action="#{createCustomerBean.save}" update="frmRegister" icon="pi pi-save"/>
+	    		</p:toolbarGroup>
+	    		
+	    		<p:toolbarGroup align="right">
+					<p:button value="Back to Customers" outcome="/customers/list.xhtml" icon="pi pi-arrow-left"/>
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="ID" for="cID"/>
+	    		<p:inputText id="cID" size="20" maxlength="20" value="#{createCustomerBean.customer.customerID}" readonly="true"/>
+	    		
+	    		<p:outputLabel value="First Name" for="firstName"/>
+	    		<p:inputText id="firstName" size="60" maxlength="80" value="#{createCustomerBean.customer.firstName}"/>
+	    		
+	    		<p:outputLabel value="Last Name" for="lastName"/>
+	    		<p:inputText id="lastName" size="60" maxlength="80" value="#{createCustomerBean.customer.lastName}"/>
+	    		
+	    		<p:outputLabel value="Sex" for="sex" />
+				<p:selectOneMenu id="sex" value="#{createCustomerBean.customer.sex}">
+					<f:selectItem itemValue="Male" itemLabel="Male" />
+					<f:selectItem itemValue="Female" itemLabel="Female" />
+					<f:selectItem itemValue="Other Sex" itemLabel="Other" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="docCPF" value="CPF" />
+            	<p:inputMask id="docCPF" value="#{createCustomerBean.customer.docCPF}" mask="999.999.999-99" validateMask="true" />
+            	
+            	<p:outputLabel for="docCNPJ" value="CNPJ" />
+            	<p:inputMask id="docCNPJ" value="#{createCustomerBean.customer.docCNPJ}" mask="999.999.999-99" validateMask="true" />
+            	
+            	<p:outputLabel for="phoneMain" value="Phone Main" />
+            	<p:inputMask id="phoneMain" value="#{createCustomerBean.customer.phoneMain}" mask="(99) 9999-9999" validateMask="true" />
+            	
+            	<p:outputLabel for="phoneSecondary" value="Phone Secondary" />
+            	<p:inputMask id="phoneSecondary" value="#{createCustomerBean.customer.phoneSecondary}" mask="(99) 9999-9999" validateMask="true" />
+            	
+            	<p:outputLabel value="Email Contact" for="emailContact"/>
+	    		<p:inputText id="emailContact" size="60" maxlength="80" value="#{createCustomerBean.customer.emailContact}"/>
+	    		
+	    		<p:outputLabel value="City" for="city"/>
+	    		<p:selectOneMenu id="city" value="#{createCustomerBean.customer.city}">
+	    			<f:selectItem itemLabel="Choice the city" />
+	    			<f:selectItems value="#{createCustomerBean.cities}" var="city" 
+						itemLabel="#{city.cityName}" itemValue="#{city}"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel value="Neighboorhood" for="neighboorhood"/>
+	    		<p:inputText id="neighboorhood" size="60" maxlength="80" value="#{createCustomerBean.customer.neighboorhood}"/>
+	    		
+	    		<p:outputLabel value="Address Line 1" for="addressLine1"/>
+	    		<p:inputText id="addressLine1" size="30" maxlength="60" value="#{createCustomerBean.customer.addressLine1}"/>
+	    		
+	    		<p:outputLabel value="Address Line 2" for="addressLine2"/>
+	    		<p:inputText id="addressLine2" size="30" maxlength="60" value="#{createCustomerBean.customer.addressLine2}"/>
+	    		
+	    		<p:outputLabel value="Address Number" for="addressNumber" />
+				<p:inputText id="addressNumber" value="#{createCustomerBean.customer.addressNumber}" 
+							 size="20" maxlength="20"
+							required="true" requiredMessage="Fill the Input to Address Number?">
+<!-- 					<f:validateLength minimum="10" maximum="30" /> -->
+				</p:inputText>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

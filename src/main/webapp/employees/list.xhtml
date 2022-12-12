@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"> All Employees </ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>All Employees</h1>
+    	
+    	<h:form id="frmSearch">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="New Employee" id="botaoNovo" action="/employees/create.xhtml" icon="pi pi-plus"/>
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:dataTable id="employeesTable" value="#{readEmployeeBean.employees}" var="employee" lazy="true"
+		    		style="margin-top: 20px" emptyMessage="Not data registered." rows="20"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+		    		
+	    		<p:column headerText="Employee ID" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{employee.employeeID}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="First Name">
+	    			<h:outputText value="#{employee.firstName}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Last Name">
+	    			<h:outputText value="#{employee.lastName}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Phone Contact">
+	    			<h:outputText value="#{employee.phoneMain}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Position">
+	    			<h:outputText value="#{employee.position}" />
+	    		</p:column>
+	    		
+	    		<p:column style="width: 100px; text-align: center">
+		    		<p:button outcome="create" icon="pi pi-pencil" title="Edit" styleClass="ui-button-raised ui-button-warning">
+		    			<f:param name="employee" value="#{employee.employeeID}"/>
+		    		</p:button>
+		    		
+		    		<p:commandButton 
+		    				icon="pi pi-trash" title="Delete" oncomplete="confirmDelete.show()"
+							process="@this" update=":frmSearch:confirmDeleteDialog" styleClass="ui-button-raised ui-button-danger">
+						<f:setPropertyActionListener target="#{readEmployeeBean.employeeSelected}" value="#{employee}" />
+					</p:commandButton>
+		    	</p:column>
+		   	</p:dataTable>
+		   	
+		   	<p:confirmDialog id="confirmDeleteDialog" widgetVar="confirmDelete"
+	        		message="Do you delete the Employee Name #{readEmployeeBean.employeeSelected.firstName} #{readEmployeeBean.employeeSelected.lastName}?"  
+	                header="Delete the Employee" severity="alert">
+	        	<p:button value="No" onclick="confirmDelete.hide(); return false;" />
+	        	<p:commandButton value="Yes" update=":frmSearch:employeesTable"
+	        			onclick="confirmDelete.hide()" action="#{readEmployeeBean.delete}" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,159 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.lp3b-sio.samstocker</groupId>
+  <artifactId>samam-stocker</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <packaging>war</packaging>
+  
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <name>samam-stocker</name>
+  <description>SAMAM STOCKER - STOCK MANAGEMENT SYSTEM </description>
+  
+  <build>
+		<finalName>samam-stocker</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <version>3.3.1</version>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<!-- Mojarra (Implementação JSF 2) -->
+		<dependency>
+		    <groupId>org.glassfish</groupId>
+		    <artifactId>javax.faces</artifactId>
+		    <version>2.3.9</version>
+		    <scope>compile</scope>
+		</dependency>
+
+
+		<!-- PrimeFaces (Biblioteca de componentes) -->
+		<dependency>
+		    <groupId>org.primefaces</groupId>
+		    <artifactId>primefaces</artifactId>
+		    <version>11.0.0</version>
+		</dependency>
+
+
+		<!-- Weld (implementação do CDI) -->
+		<dependency>
+		    <groupId>org.jboss.weld.servlet</groupId>
+		    <artifactId>weld-servlet</artifactId>
+		    <version>2.3.1.Final</version>
+		</dependency>
+
+
+		<!-- OmniFaces (utilitários para JSF) -->
+		<dependency>
+		    <groupId>org.omnifaces</groupId>
+		    <artifactId>omnifaces</artifactId>
+		    <version>3.13.4</version>
+		</dependency>
+
+		<!-- Núcleo do Hibernate -->
+		<dependency>
+		    <groupId>org.hibernate.orm</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>6.1.5.Final</version>
+		</dependency>
+
+
+		<!-- Implementação de EntityManager da JPA -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>5.6.12.Final</version>
+		</dependency>
+		
+		<!-- Hibernate Validator -->
+		<!--<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>8.0.0.Final</version>
+		</dependency> -->
+
+		<!-- Driver JDBC do MySQL -->
+		<dependency>
+		    <groupId>com.mysql</groupId>
+		    <artifactId>mysql-connector-j</artifactId>
+		    <version>8.0.31</version>
+		</dependency>
+		
+		<!-- API Validation -->
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		    <version>2.0.1.Final</version>
+		</dependency>
+		
+		<!-- Junit Test -->
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.13.2</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- Metamodel -->
+		<dependency>
+		    <groupId>org.hibernate.orm</groupId>
+		    <artifactId>hibernate-jpamodelgen</artifactId>
+		    <version>6.1.1.Final</version>
+		</dependency>
+		
+		<!-- File Upload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.3</version>
+		</dependency>
+		
+		<!-- Helper Maven -->
+		<dependency>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>build-helper-maven-plugin</artifactId>
+		    <version>3.0.0</version>
+		</dependency>
+		
+		<!-- Maven Processor -->
+		<dependency>
+		    <groupId>org.bsc.maven</groupId>
+		    <artifactId>maven-processor-plugin</artifactId>
+		    <version>4.3</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<!-- Repositorio PrimeFaces -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+
+		<repository>
+			<id>public-jboss</id>
+			<name>public-jboss</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
+	</repositories>
+</project>

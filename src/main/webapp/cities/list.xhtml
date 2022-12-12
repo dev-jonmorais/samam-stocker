@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"> All Cities </ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>All Cities</h1>
+    	
+    	<h:form id="frmSearch">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="New City" id="botaoNovo" action="/cities/create.xhtml" icon="pi pi-plus"/>
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:dataTable id="citiesTable" value="#{readCityBean.cities}" var="city" lazy="true"
+		    		style="margin-top: 20px" emptyMessage="Not data registered." rows="20"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+		    		
+	    		<p:column headerText="City ID" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{city.cityID}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="City Name">
+	    			<h:outputText value="#{city.cityName}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="State">
+	    			<h:outputText value="#{city.state.stateName}" />
+	    		</p:column>
+	    		
+	    		<p:column style="width: 100px; text-align: center">
+		    		<p:button outcome="create" icon="pi pi-pencil" title="Edit" styleClass="ui-button-raised ui-button-warning">
+		    			<f:param name="city" value="#{city.cityID}"/>
+		    		</p:button>
+		    		
+		    		<p:commandButton 
+		    				icon="pi pi-trash" title="Delete" oncomplete="confirmDelete.show()"
+							process="@this" update=":frmSearch:confirmDeleteDialog" styleClass="ui-button-raised ui-button-danger">
+						<f:setPropertyActionListener target="#{readCityBean.citySelected}" value="#{city}" />
+					</p:commandButton>
+		    	</p:column>
+		   	</p:dataTable>
+		   	
+		   	<p:confirmDialog id="confirmDeleteDialog" widgetVar="confirmDelete"
+	        		message="Do you delete the City #{readCityBean.citySelected.cityName}?"  
+	                header="Delete the City" severity="alert">
+	        	<p:button value="No" onclick="confirmDelete.hide(); return false;" />
+	        	<p:commandButton value="Yes" update=":frmSearch:citiesTable"
+	        			onclick="confirmDelete.hide()" action="#{readCityBean.delete}" />
+	    	</p:confirmDialog>
+    	</h:form>
+    </ui:define>
+</ui:composition>

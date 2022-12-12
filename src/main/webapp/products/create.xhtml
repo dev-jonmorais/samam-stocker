@@ -1,0 +1,80 @@
+<ui:composition template="/WEB-INF/template/CommonLayout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">New Product</ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="product" value="#{createProductBean.product}" />
+		</f:metadata>
+    
+    	<h1>New Product</h1>
+    	
+    	<h:form id="frmRegister" enctype="multipart/form-data">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Save" id="botaoSalvar" action="#{createProductBean.save}" update="frmRegister" icon="pi pi-save" ajax="false" />
+	    		</p:toolbarGroup>
+	    		
+	    		<p:toolbarGroup align="right">
+					<p:button value="Back to Products" outcome="/products/list.xhtml" icon="pi pi-arrow-left"/>
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+			<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
+				<p:outputLabel value="P_ID" for="pID"/>
+			    <p:inputText id="pID" size="20" maxlength="20" value="#{createProductBean.product.productID}" readonly="true"/>
+			    
+			    <p:outputLabel value="Supplier" for="productSupplier"/>
+	    		<p:selectOneMenu id="productSupplier" value="#{createProductBean.product.supplier}">
+	    			<f:selectItem itemLabel="Choice the Supplier" />
+	    			<f:selectItems value="#{createProductBean.suppliers}" var="suppliers" 
+						itemLabel="#{suppliers.supplierName}" itemValue="#{suppliers}"/>
+	    		</p:selectOneMenu>
+			    
+			    <p:outputLabel value="Product Name" for="productName"/>
+			    <p:inputText id="productName" size="60" maxlength="60" value="#{createProductBean.product.productName}"/>
+			    		
+			    <p:outputLabel value="Category" for="category"/>
+	    		<p:selectOneMenu id="category" value="#{createProductBean.product.category}">
+	    			<f:selectItem itemLabel="Select the category" />
+	    			<f:selectItems value="#{createProductBean.categories}" var="category" 
+						itemLabel="#{category}" itemValue="#{category}"/>
+	    		</p:selectOneMenu>
+	    		
+			    <p:outputLabel value="Group" for="group" />
+				<p:selectOneMenu id="group" value="#{createProductBean.product.productGroup}">
+					<f:selectItem itemValue="group_prd_1" itemLabel="Group 1" />
+					<f:selectItem itemValue="group_prd_2" itemLabel="Group 2" />
+					<f:selectItem itemValue="group_prd_3" itemLabel="Group 3" />
+					<f:selectItem itemValue="group_prd_4" itemLabel="Group 4" />
+					<f:selectItem itemValue="group_prd_5" itemLabel="Group 5" />
+					<f:selectItem itemValue="group_prd_6" itemLabel="Group 6" />
+					<f:selectItem itemValue="group_prd_7" itemLabel="Group 7" />
+					<f:selectItem itemValue="group_prd_8" itemLabel="Group 8" />
+					<f:selectItem itemValue="group_prd_9" itemLabel="Group 9" />
+					<f:selectItem itemValue="group_prd_10" itemLabel="Group 10" />
+				</p:selectOneMenu>
+				
+			    <p:outputLabel value="Purchase Price" for="purchasePrice"/>
+			    <p:inputText id="purchasePrice" size="20" maxlength="20" value="#{createProductBean.product.purchasePrice}"/>
+			    		
+			    <p:outputLabel value="Selling Price" for="sellingPrice"/>
+			    <p:inputText id="sellingPrice" size="20" maxlength="20" value="#{createProductBean.product.sellingPrice}"/>
+			    
+			    <p:outputLabel value="Photo Cover" for="photoCover"/>
+			    <p:fileUpload id="photoCover" value="#{createProductBean.uploadedFile}" mode="simple"/>
+			    
+			    <p:outputLabel value="Product Description" for="pName"/>
+			    <p:inputText id="pName" size="120" maxlength="120" value="#{createProductBean.product.productDescription}"/>	    
+			</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>
